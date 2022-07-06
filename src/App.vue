@@ -5,12 +5,6 @@ import Momo from './components/Momo.vue'
 </script>
 
 <template>
-  <div>
-    导航栏 |
-    <router-link to="/">Momo</router-link> |
-    <router-link to="/xxx">Momo2</router-link>
-  </div>
-  <hr />
   <router-view />
 </template>
 
