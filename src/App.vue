@@ -3,7 +3,8 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import { ref, provide } from "vue";
 
-const menuVisible = ref(false);
+const width = document.documentElement.clientWidth
+const menuVisible = ref(width <= 500 ? false : true);
 provide("menuVisible", menuVisible);
 
 </script>
