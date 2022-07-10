@@ -4,9 +4,9 @@
     <div class="banner">
       <h1>墨墨 UI</h1>
       <h2>一个厉害的 UI 框架</h2>
-      <p class="action">
-        <a href="">GitHub</a>
-        <a href="">开始</a>
+      <p class="actions">
+        <a href="https://github.com">GitHub</a>
+        <router-link to="/doc">开始</router-link>
       </p>
     </div>
   </div>
