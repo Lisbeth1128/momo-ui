@@ -1,24 +1,32 @@
 <template>
-  <div class="momo-dialog-overlay"></div>
-  <div class="momo-dialog-wrapper">
-    <div class="momo-dialog">
-      <header>标题<span class="momo-dialog-close"></span></header>
-      <main>
-        <p>第一行字</p>
-        <p>第二行字</p>
-      </main>
-      <footer>
-        <Button level="main">OK</Button>
-        <Button>Cancel</Button>
-      </footer>
+  <template v-if="visible">
+    <div class="momo-dialog-overlay"></div>
+    <div class="momo-dialog-wrapper">
+      <div class="momo-dialog">
+        <header>标题<span class="momo-dialog-close"></span></header>
+        <main>
+          <p>第一行字</p>
+          <p>第二行字</p>
+        </main>
+        <footer>
+          <Button level="main">OK</Button>
+          <Button>Cancel</Button>
+        </footer>
+      </div>
     </div>
-  </div>
+  </template>
 </template>
 
 <script lang="ts">
 import Button from "./Button.vue";
 
 export default {
+  props: {
+    visible: {
+      type: Boolean,
+      default: false,
+    }
+  },
   components: {
     Button,
   },
@@ -75,7 +83,7 @@ $border-color: #d9d9d9;
     cursor: pointer;
     &::before,
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       height: 1px;
       background-color: black;
