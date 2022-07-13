@@ -1,11 +1,11 @@
 <template>
-  <button class="momo-button" :class="{ [`momo-theme-${theme}`]: theme }">
+  <button class="momo-button" :class="classes">
     <slot />
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 
 export default defineComponent({
   name: "Button",
@@ -14,6 +14,20 @@ export default defineComponent({
       type: String,
       default: "button",
     },
+    size: {
+      type: String,
+      default: "normal",
+    },
+  },
+  setup(props) {
+    const { theme, size } = props;
+    const classes = computed(() => {
+      return {
+        [`momo-theme-${theme}`]: theme,
+        [`momo-size-${size}`]: size,
+      };
+    });
+    return { classes };
   },
 });
 </script>
@@ -56,7 +70,8 @@ $radius: 4px;
     border-color: transparent;
     box-shadow: none;
     color: $blue;
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       color: lighten($blue, 10%);
     }
   }
@@ -64,8 +79,21 @@ $radius: 4px;
     border-color: transparent;
     box-shadow: none;
     color: inherit;
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background-color: darken(white, 5%);
+    }
+  }
+  &.momo-theme-button {
+    &.momo-size-big {
+      font-size: 24px;
+      height: 48px;
+      padding: 0 16px;
+    }
+    &.momo-size-small {
+      font-size: 12px;
+      height: 20px;
+      padding: 0 4px;
     }
   }
 }
