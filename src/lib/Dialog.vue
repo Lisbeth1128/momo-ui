@@ -60,7 +60,7 @@ export default defineComponent({
       }
     };
     const cancel = () => {
-      context.emit("cancel");
+      props.cancel?.();
       close();
     };
     return {
