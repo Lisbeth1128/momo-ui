@@ -52,5 +52,21 @@ $radius: 4px;
   &::-moz-focus-inner {
     border: 0;
   }
+  &.momo-theme-link {
+    border-color: transparent;
+    box-shadow: none;
+    color: $blue;
+    &:hover, &:focus {
+      color: lighten($blue, 10%);
+    }
+  }
+  &.momo-theme-text {
+    border-color: transparent;
+    box-shadow: none;
+    color: inherit;
+    &:hover, &:focus {
+      background-color: darken(white, 5%);
+    }
+  }
 }
 </style>
