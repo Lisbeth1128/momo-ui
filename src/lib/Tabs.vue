@@ -64,14 +64,6 @@ export default defineComponent({
         throw new Error("Tabs 子标签必须是 Tab");
       }
     });
-    const current = computed(() => {
-      return defaults.filter((tag) => {
-        if (tag.props === null) {
-          return;
-        }
-        return tag.props.title === props.selected;
-      })[0];
-    });
     const titles = defaults.map((tag) => {
       if (tag.props === null) {
         return;
@@ -84,7 +76,6 @@ export default defineComponent({
     return {
       defaults,
       titles,
-      current,
       select,
       selectedItem,
       indicator,
