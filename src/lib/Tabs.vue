@@ -18,13 +18,7 @@
       <div class="momo-tabs-nav-indicator" ref="indicator"></div>
     </div>
     <div class="momo-tabs-content">
-      <component
-        class="momo-tabs-content-item"
-        :class="{ selected: c.props.title === selected }"
-        v-for="c in defaults"
-        :is="c"
-        :key="c.props.title"
-      ></component>
+      <component :is="current" :key="current.props.title" />
     </div>
   </div>
 </template>
@@ -32,7 +26,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Tab from "./Tab.vue";
-import { ref, watchEffect, onMounted } from "vue";
+import { ref, watchEffect, onMounted, computed } from "vue";
 
 export default defineComponent({
   props: {
@@ -44,6 +38,7 @@ export default defineComponent({
     const selectedItem = ref<HTMLDivElement>(null);
     const indicator = ref<HTMLDivElement>(null);
     const container = ref<HTMLDivElement>(null);
+
     onMounted(() => {
       watchEffect(() => {
         const { width } = selectedItem.value.getBoundingClientRect();
@@ -64,6 +59,9 @@ export default defineComponent({
         throw new Error("Tabs 子标签必须是 Tab");
       }
     });
+    const current = computed(() => {
+      return defaults.find(tag => tag.props.title === props.selected)
+    })
     const titles = defaults.map((tag) => {
       if (tag.props === null) {
         return;
@@ -74,6 +72,7 @@ export default defineComponent({
       context.emit("update:selected", title);
     };
     return {
+      current,
       defaults,
       titles,
       select,
@@ -119,12 +118,6 @@ $border-color: #d9d9d9;
   }
   &-content {
     padding: 8px 0;
-    &-item {
-      display: none;
-      &.selected {
-        display: block;
-      }
-    }
   }
 }
 </style>
