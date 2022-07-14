@@ -4,7 +4,11 @@
       <div
         class="momo-tabs-nav-item"
         v-for="(t, index) in titles"
-        :ref="el => { if (t === selected) selectedItem = el }"
+        :ref="
+          (el) => {
+            if (t === selected) selectedItem = el;
+          }
+        "
         @click="select(t)"
         :class="{ selected: t === selected }"
         :key="index"
@@ -14,7 +18,13 @@
       <div class="momo-tabs-nav-indicator" ref="indicator"></div>
     </div>
     <div class="momo-tabs-content">
-      <component class="momo-tabs-content-item" :class="{selected: c.props.title === selected}" v-for="c in defaults" :is="c" :key="c.props.title"></component>
+      <component
+        class="momo-tabs-content-item"
+        :class="{ selected: c.props.title === selected }"
+        v-for="c in defaults"
+        :is="c"
+        :key="c.props.title"
+      ></component>
     </div>
   </div>
 </template>
@@ -22,34 +32,28 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Tab from "./Tab.vue";
-import { computed, ref, onMounted, onUpdated } from "vue";
+import { computed, ref, watchEffect } from "vue";
 
 export default defineComponent({
   props: {
     selected: {
-      type: String
-    }
+      type: String,
+    },
   },
   setup(props, context) {
-    const selectedItem = ref<HTMLDivElement>(null)
-    const indicator = ref<HTMLDivElement>(null)
-    const container = ref<HTMLDivElement>(null)
-    const x = () => {
-      const {
-        width
-      } = selectedItem.value.getBoundingClientRect()
-      indicator.value.style.width = width + 'px'
-      const {
-        left: left1
-      } = container.value.getBoundingClientRect()
-      const {
-        left: left2
-      } = selectedItem.value.getBoundingClientRect()
-      const left = left2 - left1
-      indicator.value.style.left = left + 'px'
-    }
-    onMounted(x)
-    onUpdated(x)
+    const selectedItem = ref<HTMLDivElement>(null);
+    const indicator = ref<HTMLDivElement>(null);
+    const container = ref<HTMLDivElement>(null);
+    watchEffect(() => {
+      if(selectedItem.value === null) {return}
+      const { width } = selectedItem.value.getBoundingClientRect();
+      if(indicator.value === null) {return}
+      indicator.value.style.width = width + "px";
+      const { left: left1 } = container.value.getBoundingClientRect();
+      const { left: left2 } = selectedItem.value.getBoundingClientRect();
+      const left = left2 - left1;
+      indicator.value.style.left = left + "px";
+    });
 
     const slots = context.slots;
 
@@ -62,10 +66,12 @@ export default defineComponent({
     });
     const current = computed(() => {
       return defaults.filter((tag) => {
-        if(tag.props === null) {return}
-        return tag.props.title === props.selected
-      })[0]
-    })
+        if (tag.props === null) {
+          return;
+        }
+        return tag.props.title === props.selected;
+      })[0];
+    });
     const titles = defaults.map((tag) => {
       if (tag.props === null) {
         return;
@@ -73,8 +79,8 @@ export default defineComponent({
       return tag.props.title;
     });
     const select = (title: string) => {
-      context.emit('update:selected', title)
-    }
+      context.emit("update:selected", title);
+    };
     return {
       defaults,
       titles,
