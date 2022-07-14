@@ -12,8 +12,7 @@
       </div>
     </div>
     <div class="momo-tabs-content">
-      {{ current }}
-      <component class="momo-tabs-content-item" :is="current"></component>
+      <component class="momo-tabs-content-item" :class="{selected: c.props.title === selected}" v-for="c in defaults" :is="c" :key="c.props.title"></component>
     </div>
   </div>
 </template>
@@ -88,6 +87,12 @@ $border-color: #d9d9d9;
   }
   &-content {
     padding: 8px 0;
+    &-item {
+      display: none;
+      &.selected {
+        display: block;
+      }
+    }
   }
 }
 </style>
