@@ -1,11 +1,10 @@
-import { createApp } from "vue";
-import "./lib/momo.scss"
+import "./lib/momo.scss";
 import "./index.scss";
+import { createApp } from "vue";
 import App from "./App.vue";
-import { router } from "./router"
-import "./lib/svg.js"
-import "github-markdown-css"
-
+import { router } from "./router";
+import './lib/svg.js'
+import 'github-markdown-css'
 
 const app = createApp(App);
 app.use(router);

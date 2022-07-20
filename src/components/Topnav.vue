@@ -1,48 +1,50 @@
 <template>
-  <div class="topnav">
-    <router-link to="/" class="logo">
-      <svg class="icon">
-        <use xlink:href="#icon-momo"></use>
-      </svg>
-    </router-link>
-    <ul class="menu">
-      <li>
-        <router-link to="/doc">文档</router-link>
-      </li>
-    </ul>
-    <svg v-if="toggleMenuButtonVisible" class="toggleAside" @click="toggleMenu">
-      <use xlink:href="#icon-menu"></use>
+<div class="topnav">
+  <router-link to="/" class="logo">
+    <svg class="icon">
+      <use xlink:href="#icon-momo"></use>
     </svg>
-  </div>
+  </router-link>
+  <ul class="menu">
+    <li>
+      <router-link to="/doc">文档</router-link>
+    </li>
+  </ul>
+  <svg v-if="toggleMenuButtonVisible" class="toggleAside" @click="toggleMenu">
+    <use xlink:href="#icon-menu"></use>
+  </svg>
+</div>
 </template>
 
 <script lang="ts">
-import { inject, Ref } from "vue";
-import Dialog from "../lib/Dialog.vue";
-
+import {
+  inject,
+  Ref
+} from "vue";
 export default {
   props: {
     toggleMenuButtonVisible: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   setup() {
-    const menuVisible = inject<Ref<boolean>>("menuVisible");
+    const menuVisible = inject < Ref < boolean >> ("menuVisible"); // get
     const toggleMenu = () => {
-      if (menuVisible === undefined) {
-        return;
-      }
       menuVisible.value = !menuVisible.value;
     };
-    return { toggleMenu };
+    return {
+      toggleMenu
+    };
   },
-  components: { Dialog },
 };
 </script>
 
 <style lang="scss" scoped>
+$color: #007974;
+
 .topnav {
+  color: $color;
   display: flex;
   padding: 16px;
   position: fixed;
@@ -52,40 +54,48 @@ export default {
   z-index: 10;
   justify-content: center;
   align-items: center;
-  > .logo {
+
+  >.logo {
     max-width: 6em;
     margin-right: auto;
-    > svg {
+
+    >svg {
       width: 32px;
       height: 32px;
     }
   }
-  > .menu {
+
+  >.menu {
     display: flex;
     white-space: nowrap;
     flex-wrap: nowrap;
-    > li {
+
+    >li {
       margin: 0 1em;
     }
   }
-  > .toggleAside {
+
+  >.toggleAside {
     width: 32px;
     height: 32px;
-    display: none;
     position: absolute;
     left: 16px;
     top: 50%;
     transform: translateY(-50%);
-    background-color: fade-out(black, 0.9);
+    display: none;
+    background: fade-out(black, 0.9);
   }
+
   @media (max-width: 500px) {
-    > .menu {
+    >.menu {
       display: none;
     }
-    > .logo {
+
+    >.logo {
       margin: 0 auto;
     }
-    > .toggleAside {
+
+    >.toggleAside {
       display: inline-block;
     }
   }

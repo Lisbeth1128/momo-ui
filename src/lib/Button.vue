@@ -4,12 +4,9 @@
     <slot />
   </button>
 </template>
-
 <script lang="ts">
-import { defineComponent, computed } from "vue";
-
-export default defineComponent({
-  name: "Button",
+import { computed } from "vue";
+export default {
   props: {
     theme: {
       type: String,
@@ -29,8 +26,8 @@ export default defineComponent({
     },
     loading: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   setup(props) {
     const { theme, size, level } = props;
@@ -43,14 +40,13 @@ export default defineComponent({
     });
     return { classes };
   },
-});
+};
 </script>
-
 <style lang="scss">
 $h: 32px;
 $border-color: #d9d9d9;
 $color: #333;
-$blue: #30a9ff;
+$blue: #40a9ff;
 $radius: 4px;
 $red: red;
 $grey: grey;
@@ -59,16 +55,16 @@ $grey: grey;
   height: $h;
   padding: 0 12px;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  background-color: white;
+  background: white;
   color: $color;
   border: 1px solid $border-color;
   border-radius: $radius;
   box-shadow: 0 1px 0 fade-out(black, 0.95);
-  transition: background-color 250ms;
+  transition: background 250ms;
   & + & {
     margin-left: 8px;
   }
@@ -98,7 +94,7 @@ $grey: grey;
     color: inherit;
     &:hover,
     &:focus {
-      background-color: darken(white, 5%);
+      background: darken(white, 5%);
     }
   }
   &.momo-size-big {
@@ -113,22 +109,22 @@ $grey: grey;
   }
   &.momo-theme-button {
     &.momo-level-main {
-      background-color: $blue;
+      background: $blue;
       color: white;
       border-color: $blue;
       &:hover,
       &:focus {
-        background-color: darken($blue, 10%);
+        background: darken($blue, 10%);
         border-color: darken($blue, 10%);
       }
     }
     &.momo-level-danger {
-      background-color: $red;
+      background: $red;
       border-color: $red;
       color: white;
       &:hover,
       &:focus {
-        background-color: darken($red, 10%);
+        background: darken($red, 10%);
         border-color: darken($red, 10%);
       }
     }
@@ -167,19 +163,18 @@ $grey: grey;
       }
     }
   }
-  &.momo-theme-link,
-  &.momo-theme-text {
+  &.momo-theme-link, &.momo-theme-text {
     &[disabled] {
       cursor: not-allowed;
       color: $grey;
     }
   }
-  > .momo-loadingIndicator {
+  > .momo-loadingIndicator{
     width: 14px;
     height: 14px;
     display: inline-block;
     margin-right: 4px;
-    border-radius: 8px;
+    border-radius: 8px; 
     border-color: $blue $blue $blue transparent;
     border-style: solid;
     border-width: 2px;
@@ -187,11 +182,7 @@ $grey: grey;
   }
 }
 @keyframes momo-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0%{transform: rotate(0deg)} 
+  100%{transform: rotate(360deg)} 
 }
 </style>
